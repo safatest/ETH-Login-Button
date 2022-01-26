@@ -11,13 +11,21 @@ async function ethEnabled() {
             // console.log(accounts.result[0])
             const address = accounts.result[0]
             // console.log(address)
-            let response = web3.eth.getBalance(address)
-                .then(res => {console.log(res)
-                    // document.getElementById("output").innerHTML = res + " ETH";
-                    btn.innerText = res+"ETH";})
+            web3.eth.getBalance(address, function(err, result) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    let ethbal = web3.utils.fromWei(result, "ether") + " ETH"
+                    console.log(ethbal)
+                    btn.innerText = ethbal
+                }
+              })
+            // let response = web3.eth.getBalance(address)
+            //     .then(res => {console.log(res)
+            //         // document.getElementById("output").innerHTML = res + " ETH";
+            //         btn.innerText = res+"ETH";})
         return true;
         }
         return false;
     }
 }
-
